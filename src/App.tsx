@@ -230,30 +230,39 @@ const App = () => {
           <h2>Compétences</h2>
           <div className="competences-grid">
             <div className="competence-card">
-              <h3>Compétences Techniques</h3>
+              <h3>Frontend</h3>
               <ul>
                 <li>React</li>
-                <li>Laravel</li>
                 <li>TypeScript</li>
                 <li>JavaScript</li>
                 <li>HTML5</li>
                 <li>CSS3</li>
-                <li>PHP</li>
-                <li>Git & GitHub</li>
-                <li>Design UI/UX</li>
-                <li>Responsive Design</li>  
+                <li>Angular</li>
               </ul>
             </div>
             <div className="competence-card">
-              <h3>Compétences Transverses</h3>
+              <h3>Backend</h3>
               <ul>
-                <li>Travail en équipe</li>
-                <li>Communication</li>
-                <li>Autonomie</li>
-                <li>Rigueur</li>
-                <li>Adaptabilité</li>
-                <li>Français</li>
-                <li>Anglais</li>
+                <li>Laravel</li>
+                <li>PHP</li>
+                <li>Java</li>
+              </ul>
+            </div>
+            <div className="competence-card">
+              <h3>Bases de données</h3>
+              <ul>
+                <li>MySQL</li>
+                <li>SQLite</li>
+              </ul>
+            </div>
+            <div className="competence-card">
+              <h3>Outils</h3>
+              <ul>
+                <li>Git & Github</li>
+                <li>VS Code</li>
+                <li>Figma</li>
+                <li>Design UI/UX</li>
+                <li>Responsive design</li>
               </ul>
             </div>
           </div>
