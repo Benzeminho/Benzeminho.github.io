@@ -65,15 +65,25 @@ const App = () => {
     },
     {
       id: 2,
-      title: 'Placeholder',
-      shortDescription: 'Placeholder',
-      fullDescription: 'Description complète du projet à venir. Ce projet illustrera mes compétences en développement et ma capacité à résoudre des problèmes complexes.',
-      techStack: 'Placeholder',
-      date: 'Septembre 2024',
+      title: 'Spot the square',
+      shortDescription: 'Jeu de logique en JavaScript',
+      fullDescription: 'Jeu de logique développé en JavaScript où le joueur doit identifier le carré différent parmi une grille de carrés similaires.',
+      techStack: 'HTML • CSS • JavaScript',
+      date: 'Septembre 2025',
+      link: 'https://github.com/Vaiko0/js-spot-the-square',
       features: [
-        'Fonctionnalité 1',
-        'Fonctionnalité 2',
-        'Fonctionnalité 3'
+        'Échiquier interactif (64 cases)',
+        'Sélection aléatoire d’une case à trouver',
+        'Gestion et affichage du score en temps réel',
+        'Mode chrono (1 ou 2 minutes)',
+        'Mode survie avec 3 vies',
+        'Sauvegarde et affichage du meilleur score via localStorage',
+        'Possibilité de retourner l\'échiquier pour s\'entraîner côté noir'
+      ],
+      challenges: [
+        'Gestion du temps et des scores',
+        'Stockage local ET affichage des meilleurs scores',
+        'Création du chrono et des vies'
       ]
     }
   ]
