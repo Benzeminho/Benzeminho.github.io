@@ -242,6 +242,122 @@ body {
   transform: none;
 }
 
+/* Barre de progression du scroll */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--accent);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* Curseur personnalisé (le curseur natif est masqué seulement quand il est actif) */
+body.custom-cursor,
+body.custom-cursor a,
+body.custom-cursor button {
+  cursor: none;
+}
+
+.cursor-dot,
+.cursor-ring {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3000;
+}
+
+body.custom-cursor .cursor-dot,
+body.custom-cursor .cursor-ring {
+  display: block;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--accent);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1.5px solid var(--accent);
+  opacity: 0.6;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+}
+
+body.cursor-hover .cursor-ring {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  opacity: 1;
+  background: var(--accent-soft);
+}
+
+body.cursor-hidden .cursor-dot,
+body.cursor-hidden .cursor-ring {
+  opacity: 0;
+}
+
+/* Boutons attirés par la souris (propriété translate pour ne pas écraser leurs transform de survol) */
+body .magnetic {
+  translate: var(--tx, 0px) var(--ty, 0px);
+  transition-property: translate, transform, box-shadow, background-color, border-color, color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+}
+
+/* Pluie de caractères dans l'accueil */
+.matrix-rain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+  mask-image: radial-gradient(ellipse at center, transparent 25%, #000 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 25%, #000 75%);
+  pointer-events: none;
+}
+
+body.light-mode .matrix-rain {
+  opacity: 0.12;
+}
+
+/* Cartes qui s'inclinent en 3D au survol, avec un reflet sous la souris */
+.card.tilt {
+  position: relative;
+  transition: border-color 0.25s ease, transform 0.15s ease-out, box-shadow 0.25s ease;
+}
+
+.card.tilt:hover {
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px) scale(1.02);
+}
+
+.card.tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card.tilt:hover::after {
+  opacity: 1;
+}
+
 /* Apparition en cascade des éléments d'une section (fill-mode backwards : le hover reste actif après) */
 .reveal:not(.visible) .stagger {
   opacity: 0;

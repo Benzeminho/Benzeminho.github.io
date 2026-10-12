@@ -1,5 +1,6 @@
 import { useState, useEffect, type CSSProperties } from 'react'
 import './App.css'
+import { CustomCursor, MatrixRain, PointerEffects, ScrambleText, ScrollProgress } from './Effects'
 
 interface NavSection {
   id: string
@@ -149,7 +150,7 @@ const stagger = (index: number) => ({ '--i': index }) as CSSProperties
 
 const SectionTitle = ({ index, title }: { index: number; title: string }) => (
   <h2 className="section-title">
-    <span className="section-index">0{index}.</span> {title}
+    <span className="section-index">0{index}.</span> <ScrambleText text={title} />
     <span className="section-line" aria-hidden="true" />
   </h2>
 )
@@ -330,6 +331,9 @@ const App = () => {
 
   return (
     <div className="portfolio">
+      <ScrollProgress />
+      <PointerEffects />
+      <CustomCursor />
       {/* Navigation */}
       <nav className="navbar">
         <div className="nav-container">
@@ -351,13 +355,13 @@ const App = () => {
           </ul>
           <div className="nav-actions">
             <button
-              className="theme-toggle"
+              className="theme-toggle magnetic"
               onClick={toggleTheme}
               aria-label={isLightMode ? 'Passer en mode sombre' : 'Passer en mode clair'}
             >
               {isLightMode ? '☾' : '☀'}
             </button>
-            <button className="cv-button" onClick={downloadCV}>
+            <button className="cv-button magnetic" onClick={downloadCV}>
               CV.pdf
             </button>
             <button
@@ -376,6 +380,7 @@ const App = () => {
 
       {/* Accueil */}
       <section id="accueil" className="section hero">
+        <MatrixRain />
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-content">
           <div className="terminal">
@@ -388,13 +393,13 @@ const App = () => {
             <TypewriterTerminal />
           </div>
           <div className="hero-actions">
-            <button className="btn btn-primary" onClick={() => scrollToSection('projets')}>
+            <button className="magnetic btn btn-primary" onClick={() => scrollToSection('projets')}>
               Voir mes projets
             </button>
-            <a href="https://linkedin.com/in/pierre-cescosse" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <a href="https://linkedin.com/in/pierre-cescosse" target="_blank" rel="noopener noreferrer" className="magnetic btn btn-ghost">
               LinkedIn
             </a>
-            <a href="https://github.com/benzeminho" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <a href="https://github.com/benzeminho" target="_blank" rel="noopener noreferrer" className="magnetic btn btn-ghost">
               GitHub
             </a>
           </div>
@@ -447,7 +452,7 @@ const App = () => {
           <SectionTitle index={2} title="Projets" />
           <div className="projets-grid">
             {projects.map((project, index) => (
-              <article key={project.id} className="card projet-card stagger" style={stagger(index)}>
+              <article key={project.id} className="card projet-card stagger tilt" style={stagger(index)}>
                 <div className="projet-header">
                   <span className="folder-icon" aria-hidden="true">{'{ }'}</span>
                   {project.link && (
@@ -475,7 +480,7 @@ const App = () => {
           <SectionTitle index={3} title="Compétences" />
           <div className="competences-grid">
             {skills.map((skill, index) => (
-              <div key={skill.category} className="card competence-card stagger" style={stagger(index)}>
+              <div key={skill.category} className="card competence-card stagger tilt" style={stagger(index)}>
                 <h3>{skill.category}</h3>
                 <ul className="tags">
                   {skill.items.map((item, itemIndex) => (
@@ -514,16 +519,16 @@ const App = () => {
             <a href="tel:+33772348622">+33 7 72 34 86 22</a>
           </div>
           <div className="contact-links">
-            <a href="mailto:pierre.cescosse@icloud.com" className="btn btn-primary">
+            <a href="mailto:pierre.cescosse@icloud.com" className="magnetic btn btn-primary">
               Me contacter
             </a>
-            <a href="https://linkedin.com/in/pierre-cescosse" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <a href="https://linkedin.com/in/pierre-cescosse" target="_blank" rel="noopener noreferrer" className="magnetic btn btn-ghost">
               LinkedIn
             </a>
-            <a href="https://github.com/benzeminho" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <a href="https://github.com/benzeminho" target="_blank" rel="noopener noreferrer" className="magnetic btn btn-ghost">
               GitHub
             </a>
-            <button className="btn btn-ghost" onClick={downloadCV}>
+            <button className="magnetic btn btn-ghost" onClick={downloadCV}>
               Télécharger mon CV
             </button>
           </div>
@@ -580,7 +585,7 @@ const App = () => {
                   href={selectedProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
+                  className="magnetic btn btn-primary"
                 >
                   Visiter le site →
                 </a>
