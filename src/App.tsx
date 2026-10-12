@@ -164,6 +164,79 @@ const Timeline = ({ entries }: { entries: TimelineEntry[] }) => (
   </ol>
 )
 
+interface TypedLine {
+  tag: 'p' | 'h1'
+  className: string
+  segments: { text: string; className?: string }[]
+}
+
+const heroLines: TypedLine[] = [
+  { tag: 'p', className: 'prompt', segments: [{ text: '$ ', className: 'accent' }, { text: 'whoami' }] },
+  { tag: 'h1', className: 'hero-title', segments: [{ text: 'Pierre CESCOSSE' }] },
+  {
+    tag: 'p',
+    className: 'hero-subtitle',
+    segments: [{ text: 'Développeur en alternance chez ' }, { text: 'CEVA Santé Animale', className: 'highlight' }]
+  },
+  { tag: 'p', className: 'prompt', segments: [{ text: '$ ', className: 'accent' }, { text: 'cat info.txt' }] },
+  { tag: 'p', className: 'hero-info', segments: [{ text: 'Etudiant développeur | En constante évolution' }] },
+  { tag: 'p', className: 'hero-info', segments: [{ text: 'Né le 6 janvier 2003 à Bayonne' }] },
+]
+
+const lineLength = (line: TypedLine) => line.segments.reduce((total, segment) => total + segment.text.length, 0)
+const lineStarts = heroLines.map((_, index) => heroLines.slice(0, index).reduce((total, line) => total + lineLength(line), 0))
+const lineEnds = heroLines.map((line, index) => lineStarts[index] + lineLength(line))
+const totalLength = lineEnds[lineEnds.length - 1]
+
+// Texte de l'accueil qui s'écrit caractère par caractère
+const TypewriterTerminal = () => {
+  // Sans animation si l'utilisateur a demandé à réduire les mouvements
+  const [typed, setTyped] = useState(() =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? totalLength : 0
+  )
+
+  useEffect(() => {
+    if (typed >= totalLength) return
+
+    // Pause plus longue en fin de ligne, comme si on tapait « Entrée »
+    const isLineEnd = lineEnds.includes(typed)
+    const delay = typed === 0 ? 500 : isLineEnd ? 450 : 30 + Math.random() * 40
+    const timer = setTimeout(() => setTyped(typed + 1), delay)
+    return () => clearTimeout(timer)
+  }, [typed])
+
+  const isDone = typed >= totalLength
+
+  return (
+    <div className="terminal-body">
+      {heroLines.map((line, lineIndex) => {
+        const lineStart = lineStarts[lineIndex]
+        const isCurrent = isDone ? lineIndex === heroLines.length - 1 : typed >= lineStart && typed < lineEnds[lineIndex]
+        let segmentStart = lineStart
+        const Tag = line.tag
+
+        return (
+          <Tag key={lineIndex} className={line.className}>
+            {line.segments.map((segment, segmentIndex) => {
+              const visibleCount = Math.max(0, Math.min(segment.text.length, typed - segmentStart))
+              const hasCursor = !isDone && isCurrent && visibleCount < segment.text.length && typed >= segmentStart
+              segmentStart += segment.text.length
+              return (
+                <span key={segmentIndex} className={segment.className}>
+                  {segment.text.slice(0, visibleCount)}
+                  {hasCursor && <span className="cursor typing" aria-hidden="true">_</span>}
+                  <span className="untyped" aria-hidden="true">{segment.text.slice(visibleCount)}</span>
+                </span>
+              )
+            })}
+            {isDone && isCurrent && <span className="cursor" aria-hidden="true">_</span>}
+          </Tag>
+        )
+      })}
+    </div>
+  )
+}
+
 const App = () => {
   const [activeSection, setActiveSection] = useState('accueil')
   const [isLightMode, setIsLightMode] = useState(false)
@@ -303,18 +376,7 @@ const App = () => {
               <span className="dot green" />
               <span className="terminal-title">~/portfolio — zsh</span>
             </div>
-            <div className="terminal-body">
-              <p className="prompt"><span className="accent">$</span> whoami</p>
-              <h1 className="hero-title">
-                Pierre CESCOSSE<span className="cursor" aria-hidden="true">_</span>
-              </h1>
-              <p className="hero-subtitle">
-                Développeur en alternance chez <span className="highlight">CEVA Santé Animale</span>
-              </p>
-              <p className="prompt"><span className="accent">$</span> cat info.txt</p>
-              <p className="hero-info">Etudiant développeur | En constante évolution</p>
-              <p className="hero-info">Né le 6 janvier 2003 à Bayonne</p>
-            </div>
+            <TypewriterTerminal />
           </div>
           <div className="hero-actions">
             <button className="btn btn-primary" onClick={() => scrollToSection('projets')}>

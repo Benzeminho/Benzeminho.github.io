@@ -407,6 +407,16 @@ body {
   animation: blink 1s step-end infinite;
 }
 
+/* Animation d'écriture : le texte non tapé garde sa place pour éviter les sauts */
+.untyped {
+  visibility: hidden;
+}
+
+.cursor.typing {
+  position: absolute;
+  animation: none;
+}
+
 .hero-subtitle {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: var(--text);
