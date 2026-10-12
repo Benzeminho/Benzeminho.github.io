@@ -115,10 +115,16 @@ const experiences: TimelineEntry[] = [
 
 const formations: TimelineEntry[] = [
   {
+    title: 'Troisième année (B3) - Concepteur Développeur d\'Applications Numériques (CDAN)',
+    place: 'iTECH (IGENSIA Tech, ex-IPI)',
+    date: '2026 - Aujourd\'hui',
+    description: 'En alternance chez CEVA Santé Animale',
+    current: true
+  },
+  {
     title: 'Deuxième année filière Logiciel et Intelligence Artificielle',
     place: 'IPI',
-    date: '2025 - Aujourd\'hui',
-    current: true
+    date: '2025-2026'
   },
   {
     title: 'Première année filière Logiciel et Intelligence Artificielle',
@@ -182,7 +188,7 @@ const heroLines: TypedLine[] = [
     segments: [{ text: 'Développeur en alternance chez ' }, { text: 'CEVA Santé Animale', className: 'highlight' }]
   },
   { tag: 'p', className: 'prompt', segments: [{ text: '$ ', className: 'accent' }, { text: 'cat info.txt' }] },
-  { tag: 'p', className: 'hero-info', segments: [{ text: 'Etudiant développeur | En constante évolution' }] },
+  { tag: 'p', className: 'hero-info', segments: [{ text: 'Étudiant développeur | Toujours en apprentissage' }] },
   { tag: 'p', className: 'hero-info', segments: [{ text: 'Né le 6 janvier 2003 à Bayonne' }] },
 ]
 
@@ -407,7 +413,7 @@ const App = () => {
               <p className="indent"><span className="key">prenom</span>: <span className="str">'Pierre'</span>,</p>
               <p className="indent"><span className="key">naissance</span>: <span className="str">'06 janvier 2003'</span>,</p>
               <p className="indent"><span className="key">lieu</span>: <span className="str">'Bayonne'</span>,</p>
-              <p className="indent"><span className="key">formation</span>: <span className="str">'B2 Développeur'</span>,</p>
+              <p className="indent"><span className="key">formation</span>: <span className="str">"B3 Concepteur Développeur d'Applications Numériques"</span>,</p>
               <p className="indent"><span className="key">alternance</span>: <span className="str">'CEVA Santé Animale'</span>,</p>
               <p>{'}'}</p>
             </div>
