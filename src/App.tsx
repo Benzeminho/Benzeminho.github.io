@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type CSSProperties } from 'react'
 import './App.css'
 
 interface NavSection {
@@ -83,7 +83,7 @@ const projects: Project[] = [
 
 const skills: { category: string; items: string[] }[] = [
   { category: 'Frontend', items: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Angular'] },
-  { category: 'Backend', items: ['Laravel', 'PHP', 'Java'] },
+  { category: 'Backend', items: ['Laravel', 'PHP', 'Java', 'Spring Boot', 'C#', 'C++'] },
   { category: 'Bases de données', items: ['MySQL', 'SQLite'] },
   { category: 'Outils', items: ['Git & Github', 'VS Code', 'Figma', 'Design UI/UX', 'Responsive design'] },
 ]
@@ -138,6 +138,9 @@ const formations: TimelineEntry[] = [
   },
 ]
 
+// Décalage de l'animation d'apparition pour chaque élément d'une liste
+const stagger = (index: number) => ({ '--i': index }) as CSSProperties
+
 const SectionTitle = ({ index, title }: { index: number; title: string }) => (
   <h2 className="section-title">
     <span className="section-index">0{index}.</span> {title}
@@ -147,8 +150,8 @@ const SectionTitle = ({ index, title }: { index: number; title: string }) => (
 
 const Timeline = ({ entries }: { entries: TimelineEntry[] }) => (
   <ol className="timeline">
-    {entries.map(entry => (
-      <li key={entry.title} className={`timeline-item ${entry.current ? 'current' : ''}`}>
+    {entries.map((entry, index) => (
+      <li key={entry.title} className={`timeline-item stagger ${entry.current ? 'current' : ''}`} style={stagger(index)}>
         <span className="timeline-dot" aria-hidden="true" />
         <div className="timeline-content">
           <p className="timeline-date">
@@ -397,7 +400,7 @@ const App = () => {
         <div className="section-container reveal">
           <SectionTitle index={1} title="À propos de moi" />
           <div className="about-content">
-            <div className="card code-card">
+            <div className="card code-card stagger" style={stagger(0)}>
               <p className="code-comment">// Informations personnelles</p>
               <p><span className="kw">const</span> <span className="var">pierre</span> = {'{'}</p>
               <p className="indent"><span className="key">nom</span>: <span className="str">'CESCOSSE'</span>,</p>
@@ -408,7 +411,7 @@ const App = () => {
               <p className="indent"><span className="key">alternance</span>: <span className="str">'CEVA Santé Animale'</span>,</p>
               <p>{'}'}</p>
             </div>
-            <div className="card">
+            <div className="card stagger" style={stagger(1)}>
               <h3>Liens Professionnels</h3>
               <ul className="link-list">
                 <li>
@@ -437,8 +440,8 @@ const App = () => {
         <div className="section-container reveal">
           <SectionTitle index={2} title="Projets" />
           <div className="projets-grid">
-            {projects.map(project => (
-              <article key={project.id} className="card projet-card">
+            {projects.map((project, index) => (
+              <article key={project.id} className="card projet-card stagger" style={stagger(index)}>
                 <div className="projet-header">
                   <span className="folder-icon" aria-hidden="true">{'{ }'}</span>
                   {project.link && (
@@ -465,12 +468,12 @@ const App = () => {
         <div className="section-container reveal">
           <SectionTitle index={3} title="Compétences" />
           <div className="competences-grid">
-            {skills.map(skill => (
-              <div key={skill.category} className="card competence-card">
+            {skills.map((skill, index) => (
+              <div key={skill.category} className="card competence-card stagger" style={stagger(index)}>
                 <h3>{skill.category}</h3>
                 <ul className="tags">
-                  {skill.items.map(item => (
-                    <li key={item} className="tag">{item}</li>
+                  {skill.items.map((item, itemIndex) => (
+                    <li key={item} className="tag stagger" style={stagger(index + 2 + itemIndex * 0.5)}>{item}</li>
                   ))}
                 </ul>
               </div>
