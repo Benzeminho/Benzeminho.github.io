@@ -11,6 +11,12 @@
     <title>Portfolio | Pierre CESCOSSE</title>
   </head>
   <body>
+    <!-- Applique le thème clair avant l'affichage pour éviter un flash sombre -->
+    <script>
+      try {
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode')
+      } catch {}
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

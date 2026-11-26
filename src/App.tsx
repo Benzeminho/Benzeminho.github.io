@@ -248,18 +248,11 @@ const TypewriterTerminal = () => {
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('accueil')
-  const [isLightMode, setIsLightMode] = useState(false)
+  // Le thème choisi est déjà appliqué par le script de index.html
+  const [isLightMode, setIsLightMode] = useState(() => document.body.classList.contains('light-mode'))
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  // Thème sombre par défaut, clair si l'utilisateur l'a choisi
-  useEffect(() => {
-    if (localStorage.getItem('theme') === 'light') {
-      setIsLightMode(true)
-      document.body.classList.add('light-mode')
-    }
-  }, [])
 
   // Met à jour le lien actif selon la section visible
   useEffect(() => {
@@ -327,6 +320,16 @@ const App = () => {
     document.body.style.overflow = 'auto'
     setTimeout(() => setSelectedProject(null), 300)
   }
+
+  // Fermeture du popup avec la touche Échap
+  useEffect(() => {
+    if (!isModalOpen) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeProjectModal()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isModalOpen])
 
   return (
     <div className="portfolio">
