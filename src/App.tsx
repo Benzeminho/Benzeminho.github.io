@@ -190,7 +190,6 @@ const heroLines: TypedLine[] = [
   },
   { tag: 'p', className: 'prompt', segments: [{ text: '$ ', className: 'accent' }, { text: 'cat info.txt' }] },
   { tag: 'p', className: 'hero-info', segments: [{ text: 'Étudiant développeur | Toujours en apprentissage' }] },
-  { tag: 'p', className: 'hero-info', segments: [{ text: 'Né le 6 janvier 2003 à Bayonne' }] },
 ]
 
 const lineLength = (line: TypedLine) => line.segments.reduce((total, segment) => total + segment.text.length, 0)
@@ -416,8 +415,6 @@ const App = () => {
               <p><span className="kw">const</span> <span className="var">pierre</span> = {'{'}</p>
               <p className="indent"><span className="key">nom</span>: <span className="str">'CESCOSSE'</span>,</p>
               <p className="indent"><span className="key">prenom</span>: <span className="str">'Pierre'</span>,</p>
-              <p className="indent"><span className="key">naissance</span>: <span className="str">'06 janvier 2003'</span>,</p>
-              <p className="indent"><span className="key">lieu</span>: <span className="str">'Bayonne'</span>,</p>
               <p className="indent"><span className="key">formation</span>: <span className="str">"B3 Concepteur Développeur d'Applications Numériques"</span>,</p>
               <p className="indent"><span className="key">alternance</span>: <span className="str">'CEVA Santé Animale'</span>,</p>
               <p>{'}'}</p>
@@ -516,7 +513,6 @@ const App = () => {
           <p className="contact-intro">N'hésitez pas à me contacter pour discuter de projets ou d'opportunités professionnelles.</p>
           <div className="contact-details">
             <a href="mailto:pierre.cescosse@icloud.com">pierre.cescosse@icloud.com</a>
-            <a href="tel:+33772348622">+33 7 72 34 86 22</a>
           </div>
           <div className="contact-links">
             <a href="mailto:pierre.cescosse@icloud.com" className="magnetic btn btn-primary">
